@@ -1,7 +1,6 @@
 {
   "name": "eventhall-backend",
   "version": "1.0.0",
-  "type": "module",
   "description": "Event Hall Backend API",
   "main": "dist/index.js",
   "scripts": {
