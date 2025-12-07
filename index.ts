@@ -47,6 +47,26 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Firebase health check
+app.get('/api/health/firebase', (req, res) => {
+  const hasProjectId = !!process.env.FIREBASE_PROJECT_ID;
+  const hasClientEmail = !!process.env.FIREBASE_CLIENT_EMAIL;
+  const hasPrivateKey = !!process.env.FIREBASE_PRIVATE_KEY;
+  const privateKeyLength = process.env.FIREBASE_PRIVATE_KEY?.length || 0;
+  
+  res.json({
+    firebase: {
+      configured: hasProjectId && hasClientEmail && hasPrivateKey,
+      projectId: hasProjectId ? 'set' : 'missing',
+      clientEmail: hasClientEmail ? 'set' : 'missing',
+      privateKey: hasPrivateKey ? `set (${privateKeyLength} chars)` : 'missing',
+      privateKeyPreview: hasPrivateKey 
+        ? process.env.FIREBASE_PRIVATE_KEY?.substring(0, 50) + '...' 
+        : 'N/A'
+    }
+  });
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
