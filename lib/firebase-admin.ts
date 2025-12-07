@@ -28,5 +28,5 @@ if (!admin.apps.length) {
   }
 }
 
-export const auth = admin.auth();
+export const auth: ReturnType<typeof admin.auth> = admin.auth();
 export default admin;
