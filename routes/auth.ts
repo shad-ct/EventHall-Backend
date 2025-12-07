@@ -83,7 +83,17 @@ router.post('/sync-user', async (req, res) => {
     });
   } catch (error) {
     console.error('Sync user error:', error);
-    res.status(500).json({ error: 'Failed to sync user' });
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined,
+    });
+    const message = error instanceof Error ? error.message : 'Failed to sync user';
+    res.status(500).json({ 
+      error: 'Failed to sync user',
+      details: message,
+      errorType: error instanceof Error ? error.name : 'UnknownError',
+    });
   }
 });
 
