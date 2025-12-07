@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 3001;
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:5173',
   'https://parivadi.netlify.app',
+  'https://eventhall.onrender.com',
   'http://localhost:5173',
   'http://localhost:5174',
   'http://localhost:5175',
